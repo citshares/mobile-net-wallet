@@ -7,7 +7,8 @@ import App from './App'
 import Vuex from 'vuex'
 import vuexI18n from 'vuex-i18n'
 import { sync } from 'vuex-router-sync'
-import Home from './components/HelloFromVux'
+import Demo from './components/DemoVux'
+import { Group } from 'vux'
 
 Vue.use(VueRouter)
 Vue.use(Vuex)
@@ -44,10 +45,9 @@ store.registerModule('vux', {
   }
 })
 
-const routes = [{
-  path: '/',
-  component: Home
-}]
+const routes = [
+  {path: '/demo', component: Demo}
+]
 
 const router = new VueRouter({
   routes
@@ -58,6 +58,8 @@ FastClick.attach(document.body)
 Vue.config.productionTip = false
 
 sync(store, router)
+
+Vue.component('group', Group)
 
 /* eslint-disable no-new */
 new Vue({

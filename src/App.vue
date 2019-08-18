@@ -1,42 +1,56 @@
 <template>
   <div id="app" style="height:100%;">
+    <group style="margin-top:20px;">
+       <cell title="CTS/CNY" link="/demo" value="交易" v-show="drawerVisibility" @click.native="drawerVisibility = false"></cell>
+    </group>
     <tabbar class="vux-demo-tabbar" icon-class="vux-center"  slot="bottom">
-        <tabbar-item :link="{path:'/'}" :selected="route.path === '/'">
-         <span class="demo-icon-22 vux-demo-tabbar-icon-home" slot="icon" style="position:relative;top: -2px;">&#xe637;</span>
-           <span slot="label">行情</span>
-             </tabbar-item>
-               <tabbar-item :link="{path:'/demo'}" :selected="isDemo" badge="9">
-               <span class="demo-icon-22" slot="icon">&#xe633;</span>
-               <span slot="label"><span v-if="componentName" class="vux-demo-tabbar-component">{{componentName}}</span><span v-else>钱包</span></span>
-             </tabbar-item>
-      </tabbar>
-    
+
+      <tabbar-item :link="{path:'/'}" :selected="route.path === '/'" @click.native="drawerVisibility = true">
+         <span slot="label">行情</span>
+      </tabbar-item>
+
+      <tabbar-item :link="{path:'/demo'}" @click.native="drawerVisibility = false" >
+         <span slot="label">钱包</span>
+      </tabbar-item>
+
+    </tabbar>
+  <router-view></router-view>
   </div>
+
 </template>
 
 <script>
-import { Drawer, Tabbar, TabbarItem } from 'vux'
+import { Group, Cell, Tabbar, TabbarItem } from 'vux'
 import { mapState } from 'vuex'
 
 export default {
   name: 'app',
   components: {
-    Drawer,
+    Group,
+    Cell,
     Tabbar,
     TabbarItem
   },
   methods: {
     onShowModeChange (val) {
-      this.drawerVisibility = false
+      this.drawerVisibility = true
       setTimeout(one => {
         this.showModeValue = val
       }, 400)
     },
     onPlacementChange (val) {
-      this.drawerVisibility = false
+      this.drawerVisibility = true
       setTimeout(one => {
         this.showPlacementValue = val
       }, 400)
+    }
+  },
+  mounted () {
+    this.handler = () => {
+      if (this.path === '/demo') {
+        this.box = document.querySelector('#demo_list_box')
+        this.updateDemoPosition(this.box.scrollTop)
+      }
     }
   },
   watch: {
@@ -44,44 +58,29 @@ export default {
       if (path === '/component/demo') {
         this.$router.replace('/demo')
       }
+      if (path === 'demo') {
+        setTimeout(() => {
+          this.box = document.querySelector('#demo_list_box')
+          if (this.box) {
+            this.box.removeEventListener('scroll', this.handler, false)
+            this.box.addEventListener('scroll', this.handler, false)
+          }
+        }, 1000)
+      } else {
+        this.box && this.box.removeEventListener('scroll', this.handler, false)
+      }
     }
   },
   computed: {
     ...mapState({
       route: state => state.route,
-      path: state => state.route.path,
-      deviceready: state => state.app.deviceready,
-      demoTop: state => state.vux.demoScrollTop,
-      isLoading: state => state.vux.isLoading,
-      direction: state => state.vux.direction
-    }),
-    isShowBar () {
-      if (this.entryUrl.indexOf('hide-tab-bar') > -1) {
-        return false
-      }
-      return true
-    },
-    isTabbarDemo () {
-      return /tabbar/.test(this.route.path)
-    },
-    componentName () {
-      if (this.route.path) {
-        const parts = this.route.path.split('/')
-        if (/component/.test(this.route.path) && parts[2]) return parts[2]
-      }
-    },
-    isDemo () {
-      return /component|demo/.test(this.route.path)
-    }
+      path: state => state.route.path
+    })
   },
   data () {
     return {
       entryUrl: document.location.href,
-      drawerVisibility: false,
-      showMode: 'push',
-      showModeValue: 'push',
-      showPlacement: 'left',
-      showPlacementValue: 'left'
+      drawerVisibility: true
     }
   }
 }
@@ -98,24 +97,10 @@ body {
   background-color: none;
   background: rgba(247, 247, 250, 0.5);**/
 }
-.vux-demo-tabbar .weui-bar__item_on .demo-icon-22 {
+.vux-demo-tabbar .weui-bar__item_on {
   color: #F70968;
 }
 .vux-demo-tabbar .weui-tabbar_item.weui-bar__item_on .vux-demo-tabbar-icon-home {
   color: rgb(53, 73, 94);
 }
-.demo-icon-22:before {
-  content: attr(icon);
-}
-.vux-demo-tabbar-component {
-  background-color: #F70968;
-  color: #fff;
-  border-radius: 7px;
-  padding: 0 4px;
-  line-height: 14px;
-}
-.weui-tabbar__icon + .weui-tabbar__label {
-  margin-top: 0!important;
-}
-
 </style>
