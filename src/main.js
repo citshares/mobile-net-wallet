@@ -8,7 +8,9 @@ import Vuex from 'vuex'
 import vuexI18n from 'vuex-i18n'
 import { sync } from 'vuex-router-sync'
 import Demo from './components/DemoVux'
+import Kline from './components/Kline'
 import { Group } from 'vux'
+import Candle from 'v-charts/lib/candle.common'
 
 Vue.use(VueRouter)
 Vue.use(Vuex)
@@ -46,7 +48,8 @@ store.registerModule('vux', {
 })
 
 const routes = [
-  {path: '/demo', component: Demo}
+  {path: '/demo', component: Demo},
+  {path: '/kline', component: Kline}
 ]
 
 const router = new VueRouter({
@@ -60,6 +63,8 @@ Vue.config.productionTip = false
 sync(store, router)
 
 Vue.component('group', Group)
+
+Vue.component('ve-candle', Candle)
 
 /* eslint-disable no-new */
 new Vue({

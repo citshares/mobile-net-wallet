@@ -1,15 +1,15 @@
 <template>
   <div id="app" style="height:100%;">
     <group style="margin-top:20px;">
-       <cell title="CTS/CNY" link="/demo" value="交易" v-show="drawerVisibility" @click.native="drawerVisibility = false"></cell>
+       <cell title="CTS/CNY" link="/kline" value="交易" v-show="CurrentPage === 'HangQing'" @click.native="CurrentPage = 'CtsKline'"></cell>
     </group>
     <tabbar class="vux-demo-tabbar" icon-class="vux-center"  slot="bottom">
 
-      <tabbar-item :link="{path:'/'}" :selected="route.path === '/'" @click.native="drawerVisibility = true">
+      <tabbar-item :link="{path:'/'}" :selected="route.path === '/'" @click.native="CurrentPage = 'HangQing'">
          <span slot="label">行情</span>
       </tabbar-item>
 
-      <tabbar-item :link="{path:'/demo'}" @click.native="drawerVisibility = false" >
+      <tabbar-item :link="{path:'/demo'}" @click.native="CurrentPage = 'QianBao'" >
          <span slot="label">钱包</span>
       </tabbar-item>
 
@@ -33,13 +33,13 @@ export default {
   },
   methods: {
     onShowModeChange (val) {
-      this.drawerVisibility = true
+      this.CurrentPage = true
       setTimeout(one => {
         this.showModeValue = val
       }, 400)
     },
     onPlacementChange (val) {
-      this.drawerVisibility = true
+      this.CurrentPage = true
       setTimeout(one => {
         this.showPlacementValue = val
       }, 400)
@@ -80,7 +80,7 @@ export default {
   data () {
     return {
       entryUrl: document.location.href,
-      drawerVisibility: true
+      CurrentPage: 'HangQing'
     }
   }
 }
