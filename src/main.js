@@ -7,8 +7,9 @@ import App from './App'
 import Vuex from 'vuex'
 import vuexI18n from 'vuex-i18n'
 import { sync } from 'vuex-router-sync'
-import Demo from './components/DemoVux'
+import QianBao from './components/QianBao'
 import Kline from './components/Kline'
+import ChainData from './components/ChainData'
 import { Group } from 'vux'
 import Candle from 'v-charts/lib/candle.common'
 
@@ -48,8 +49,9 @@ store.registerModule('vux', {
 })
 
 const routes = [
-  {path: '/demo', component: Demo},
-  {path: '/kline', component: Kline}
+  {path: '/qianbao', component: QianBao},
+  {path: '/kline', component: Kline},
+  {path: '/chaindata', component: ChainData}
 ]
 
 const router = new VueRouter({

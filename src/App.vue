@@ -9,7 +9,7 @@
          <span slot="label">行情</span>
       </tabbar-item>
 
-      <tabbar-item :link="{path:'/demo'}" @click.native="CurrentPage = 'QianBao'" >
+      <tabbar-item :link="{path:'/qianbao'}" @click.native="CurrentPage = 'QianBao'" >
          <span slot="label">钱包</span>
       </tabbar-item>
 
