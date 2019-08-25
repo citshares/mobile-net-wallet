@@ -1,19 +1,32 @@
 <template>
-  <div class="hello">
-    <h1>{{ msg }}</h1>
+  <div>
+    <div v-for="value in object">
+      {{ value }}
+    </div>
   </div>
 </template>
 
 <script>
-import { test } from '../js/ChainData.js'
+import { GetData, ChainConnect } from '../js/ChainData.js'
 export default {
   name: 'ChainData',
   mounted () {
-    this.msg = test()
+    ChainConnect()
+    this.timer = setInterval(this.refresh, 1000)
+  },
+  methods: {
+    refresh() {
+      this.object = GetData()
+      console.log("CitShares: refresh object ", this.object.toString())
+    }
+  },
+  beforeDestroy () {
+    clearInterval(this.timer)
   },
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      timer: '',
+      object: [0,0]
     }
   }
 }
