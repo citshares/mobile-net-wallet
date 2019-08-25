@@ -155,7 +155,8 @@ class ChainStore {
                                     .db_api()
                                     .exec("set_subscribe_callback", [
                                         this.onUpdate.bind(this),
-                                        subscribe_to_new
+                                        //subscribe_to_new
+                                        false
                                     ])
                                     .then(() => {
                                         console.log(

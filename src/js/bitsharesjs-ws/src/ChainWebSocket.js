@@ -128,6 +128,7 @@ class ChainWebSocket {
   };
 
   call = params => {
+    console.log("CitShares first : ", params)
     if (this.ws.readyState !== 1) {
       return Promise.reject(
         new Error("websocket state error:" + this.ws.readyState)
@@ -193,6 +194,10 @@ class ChainWebSocket {
         resolve: resolve,
         reject: reject
       };
+      console.log("CitShares :", request.params)
+      console.log("CitShares :", request.params[2][0])
+      console.log("CitShares :", request.params[2][1])
+      console.log("CitShares :", JSON.stringify(request))
       this.ws.send(JSON.stringify(request));
     });
   };

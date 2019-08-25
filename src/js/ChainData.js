@@ -2,7 +2,7 @@ import {Apis} from './bitsharesjs-ws/src'
 import {ChainStore} from './bitsharesjs/lib'
 
 function ChainConnect () {
-  Apis.instance('wss://bit.btsabc.org/ws', true).init_promise.then((res) => {
+  Apis.instance('wss://www.citshares.org/ws', true).init_promise.then((res) => {
     console.log('connected to ', res[0].network)
     ChainStore.init().then(() => {
       ChainStore.subscribe(updateState)

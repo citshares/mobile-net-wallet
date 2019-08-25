@@ -1,15 +1,16 @@
 var config = {
-  core_asset: "CORE",
-  address_prefix: "GPH",
+  core_asset: "CTS",
+  address_prefix: "CTS",
   expire_in_secs: 15,
   expire_in_secs_proposal: 24 * 60 * 60,
   review_in_secs_committee: 24 * 60 * 60,
   networks: {
     BitShares: {
-      core_asset: "BTS",
-      address_prefix: "BTS",
+      core_asset: "CTS",
+      address_prefix: "CTS",
       chain_id:
-        "4018d7844c78f6a6c41c6a552b898022310fc5dec06da467ee7905a8dad512c8"
+ //       "4018d7844c78f6a6c41c6a552b898022310fc5dec06da467ee7905a8dad512c8"
+        "53952fc10d52a3af6d572a298e8f99a0a2e7afd0f7dbad354d8d65e8c36c962d"
     },
     Muse: {
       core_asset: "MUSE",
