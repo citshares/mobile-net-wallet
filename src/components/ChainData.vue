@@ -17,7 +17,6 @@ export default {
   methods: {
     refresh() {
       this.object = GetData()
-      console.log("CitShares: refresh object ", this.object.toString())
     }
   },
   beforeDestroy () {
