@@ -50,29 +50,9 @@ function ChainConnectMarket (callBack) {
 }
 
 var DataList = []
-var TempData = []
 
-function GetDataMarketTemp (startDate = new Date() , seq = 0, by_time = 1) {
-  let bucketSize = 100
-
-  let endDate = new Date()
-
-  endDate.setDate(startDate.getDate() - 30)
-  let get_market_history = []
-  get_market_history = Apis.instance()
-             .db_api().exec("get_trade_history", [
-                   "1.3.1",
-                   "1.3.0",
-                   startDate.toISOString().slice(0, -5),
-                   endDate.toISOString().slice(0, -5),
-                   1
-               ])
-   get_market_history.then(results => {
-         TempData = results
-   })
-
-  console.log("CitShares: go out loop")
-  return TempData
+function CleanDataList() {
+   DataList = []
 }
 
 
@@ -93,7 +73,8 @@ function GetDataMarket (startDate = new Date() , seq = 0, by_time = 1) {
                      1
                  ])
      get_market_history.then(results => {
-         TempData = results
+         DataList = results
+         console.log("CitShares by time ", DataList)
      })
    }else{
      let get_market_history = []
@@ -111,7 +92,6 @@ function GetDataMarket (startDate = new Date() , seq = 0, by_time = 1) {
      })
 
   }
-  console.log("CitShares: go out loop")
   return DataList
 }
 
@@ -122,5 +102,5 @@ export {
   GetData,
   ChainConnectMarket,
   GetDataMarket,
-  GetDataMarketTemp
+  CleanDataList
 }
