@@ -2,21 +2,9 @@ import {Apis} from './bitsharesjs-ws/src'
 import {ChainStore} from './bitsharesjs/lib'
 
 
-//function sleep(ms) {
-//    var start = new Date().getTime();
-//    for (var i = 0; i < 1e7;i++ ) {
-//       if ((new Date().getTime() - start) > ms){
-//          break;
-//       }
-//    }
-//}
-//
-
-
-
 function ChainConnect () {
   Apis.instance('wss://www.citshares.org/ws', true).init_promise.then((res) => {
-    //console.log('connected to ', res[0].network)
+    console.log('connected to ', res[0].network)
     ChainStore.init().then(() => {
       ChainStore.subscribe(GetData)
     })

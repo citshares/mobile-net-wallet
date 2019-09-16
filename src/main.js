@@ -10,6 +10,7 @@ import { sync } from 'vuex-router-sync'
 import QianBao from './components/QianBao'
 import Kline from './components/Kline'
 import ChainData from './components/ChainData'
+import DaoRu from './components/DaoRu'
 import { Group } from 'vux'
 import Candle from 'v-charts/lib/candle.common'
 
@@ -51,7 +52,8 @@ store.registerModule('vux', {
 const routes = [
   {path: '/qianbao', component: QianBao},
   {path: '/kline', component: Kline},
-  {path: '/chaindata', component: ChainData}
+  {path: '/chaindata', component: ChainData},
+  {path: '/daoru', component: DaoRu}
 ]
 
 const router = new VueRouter({
