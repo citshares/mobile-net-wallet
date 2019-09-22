@@ -18,10 +18,6 @@ export default {
   },
   methods: {
      save: function () {
-         if (!GetAccount(this.account)) {
-            alert("Account is not exist")
-            return -1
-         }
          localStorage.account = this.account
          var ret = GetKeyFromBrain(this.password)
          localStorage.password = Enc(ret[0], ret[0])
