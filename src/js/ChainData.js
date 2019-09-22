@@ -1,5 +1,5 @@
 import {Apis} from './bitsharesjs-ws/src'
-import {ChainStore} from './bitsharesjs/lib'
+import {ChainStore, PrivateKey, Aes} from './bitsharesjs/lib'
 
 
 function ChainConnect () {
@@ -83,12 +83,37 @@ function GetDataMarket (startDate = new Date() , seq = 0, by_time = 1) {
   return DataList
 }
 
+function GetKeyFromBrain(password) {
+   var priv = PrivateKey.fromSeed(password)
+   var pubkey = priv.toPublicKey().toPublicKeyString()
+   var privkey = priv.toHex() 
+   return [pubkey, privkey]
+}
 
+function Enc(plain, key) {
+   var aes_handler = Aes.fromSeed(key)
+   var enctxt = aes_handler.encryptToHex(plain)
+   return enctxt
+}
+
+function Dec(enc, key) {
+   var aes_handler = Aes.fromSeed(key)
+   var dectxt = aes_handler.decryptHexToText(enc)
+   return dectxt 
+}
+
+function GetAccount(account_name) {
+  return ChainStore.getAccount(account_name, false)
+}
 
 export {
   ChainConnect,
   GetData,
   ChainConnectMarket,
   GetDataMarket,
-  CleanDataList
+  CleanDataList,
+  GetKeyFromBrain,
+  Enc,
+  Dec,
+  GetAccount
 }

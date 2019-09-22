@@ -11,6 +11,7 @@ import QianBao from './components/QianBao'
 import Kline from './components/Kline'
 import ChainData from './components/ChainData'
 import DaoRu from './components/DaoRu'
+import DengLu from './components/DengLu'
 import { Group } from 'vux'
 import Candle from 'v-charts/lib/candle.common'
 
@@ -53,7 +54,8 @@ const routes = [
   {path: '/qianbao', component: QianBao},
   {path: '/kline', component: Kline},
   {path: '/chaindata', component: ChainData},
-  {path: '/daoru', component: DaoRu}
+  {path: '/daoru', component: DaoRu},
+  {path: '/denglu', component: DengLu}
 ]
 
 const router = new VueRouter({
