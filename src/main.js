@@ -8,6 +8,7 @@ import Vuex from 'vuex'
 import vuexI18n from 'vuex-i18n'
 import { sync } from 'vuex-router-sync'
 import QianBao from './components/QianBao'
+import Buy from './components/Buy'
 import Kline from './components/Kline'
 import ChainData from './components/ChainData'
 import DaoRu from './components/DaoRu'
@@ -55,7 +56,8 @@ const routes = [
   {path: '/kline', component: Kline},
   {path: '/chaindata', component: ChainData},
   {path: '/daoru', component: DaoRu},
-  {path: '/denglu', component: DengLu}
+  {path: '/denglu', component: DengLu},
+  {path: '/buy', component: Buy}
 ]
 
 const router = new VueRouter({

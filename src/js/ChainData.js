@@ -106,6 +106,42 @@ function GetAccount(account_name) {
   return ChainStore.getAccount(account_name, false)
 }
 
+
+function Merge(src) {
+   var l = []
+   var last = src[0]['price']
+   l.push({'price': src[0]['price'], 'count': parseFloat(src[0]['quote'])})
+   for (var i = 1; i < src.length; i++) {
+      if (src[i]['price'] == last) {
+          var temp = l.pop()
+          temp['count'] += parseFloat(src[i]['quote'])
+          l.push(temp)
+      }else {
+          l.push({'price':src[i]['price'], 'count':parseFloat(src[i]['quote'])})
+          last = src[i]['price']
+      }
+   }
+   return l
+}
+
+function GetOrderBook() {
+  var books=[]
+  var ret = []
+  var order_book = Apis.instance()
+        .db_api().exec("get_order_book", [
+                     "CNY",
+                     "CTS",
+                     50,
+                 ])
+  order_book.then(results => {
+         books = results
+         var ask = Merge(books.asks)
+         var bid = Merge(books.bids)
+         ret.push([ask, bid])
+  })
+  return ret 
+}
+
 export {
   ChainConnect,
   GetData,
@@ -115,5 +151,6 @@ export {
   GetKeyFromBrain,
   Enc,
   Dec,
-  GetAccount
+  GetAccount,
+  GetOrderBook,
 }

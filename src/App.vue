@@ -12,6 +12,15 @@
       <tabbar-item :link="{path:'/qianbao'}" @click.native="CurrentPage = 'QianBao'" >
          <span slot="label">钱包</span>
       </tabbar-item>
+    
+      <tabbar-item :link="{path:'/buy'}" @click.native="CurrentPage = 'Buy'" >
+         <span slot="label">BUY</span>
+      </tabbar-item>
+ 
+      <tabbar-item :link="{path:'/qianbao'}" @click.native="CurrentPage = 'QianBao'" >
+         <span slot="label">SELL</span>
+      </tabbar-item>
+
 
     </tabbar>
   <router-view></router-view>
