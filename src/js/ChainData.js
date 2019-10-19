@@ -124,9 +124,9 @@ function Merge(src) {
    return l
 }
 
+var OrderBookRet = {}
 function GetOrderBook() {
   var books=[]
-  var ret = []
   var order_book = Apis.instance()
         .db_api().exec("get_order_book", [
                      "CNY",
@@ -137,9 +137,10 @@ function GetOrderBook() {
          books = results
          var ask = Merge(books.asks)
          var bid = Merge(books.bids)
-         ret.push([ask, bid])
+         OrderBookRet['ask'] = ask
+         OrderBookRet['bid'] = bid
   })
-  return ret 
+  return OrderBookRet
 }
 
 export {
