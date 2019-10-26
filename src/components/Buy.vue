@@ -1,38 +1,46 @@
 <template>
 <div>
-   <div>
-   <p>sell orders </p>
-   <load-more tip="content-bordered=false" :show-loading="false" background-color="#fbf9fe"></load-more>
+   <div v-show="CurrentPage === 'buy'">
+   <p>挂单</p>
    <x-table :cell-bordered="false" :content-bordered="false" style="background-color:#fff;">
      <thead>
        <tr style="background-color: #F7F7F7">
-         <th>sell id </th>
-         <th>Price     </th>
-         <th>Quantity  </th>
+         <th>卖 </th>
+         <th>价格</th>
+         <th>数量</th>
        </tr>
      </thead>
      <tbody>
        <tr v-for="v in book['ask']">
-            <td>sell   {{ book['ask'].indexOf(v) }}</td>
+            <td>卖 {{ book['ask'].length - book['ask'].indexOf(v) - 1 }}</td>
             <td>{{ v['price'] }}</td>
             <td>{{ v['count'] }}</td>
        </tr>
-       <tr>
-         <td>Apple</td>
-         <td>$1.25</td>
-         <td> x 1</td>
+     </tbody>
+   </x-table>
+   <x-table :cell-bordered="false" :content-bordered="false" style="background-color:#fff;">
+     <thead>
+       <tr style="background-color: #F7F7F7">
+         <th>买</th>
+         <th>价格</th>
+         <th>数量</th>
        </tr>
-       <tr>
-         <td>Banana</td>
-         <td>$1.20</td>
-         <td> x 2</td>
+     </thead>
+     <tbody>
+       <tr v-for="v in book['bid']">
+            <td>买 {{ book['bid'].indexOf(v) }}</td>
+            <td>{{ v['price'] }}</td>
+            <td>{{ v['count'] }}</td>
        </tr>
-      </tbody>
-    </x-table>
-    </div>
-
-
-
+     </tbody>
+   </x-table>
+   <p>价格</p>
+   <input v-model="buy_price">
+   <p>数量</p>
+   <input v-model="buy_count">
+   <button v-on:click='run_buy'>买入</button>
+   
+</div>
   <router-view></router-view>
 </div>
 </template>
@@ -62,6 +70,11 @@ export default {
           console.log("Update Order[ask][0]['count'] ", this.book['ask'][0]['count'])
           this.$forceUpdate()
       },
+      run_buy: function() {
+          console.log("run_buy")
+          Buy(this.buy_price, this.buy_count)
+
+      }
 
   },
   mounted () {
@@ -74,9 +87,11 @@ export default {
     } else {
         this.timer = setInterval(this.UpdateOrder, 3000)
     }
+    this.CurrentPage = "buy"
   },
   beforeDestroy() {
      clearInterval(this.timer)
+     this.CurrentPage = ""
   },
   data () {
     this.unlock = 0

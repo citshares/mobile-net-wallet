@@ -14,11 +14,11 @@
       </tabbar-item>
     
       <tabbar-item :link="{path:'/buy'}" @click.native="CurrentPage = 'Buy'" >
-         <span slot="label">BUY</span>
+         <span slot="label">买</span>
       </tabbar-item>
  
       <tabbar-item :link="{path:'/qianbao'}" @click.native="CurrentPage = 'QianBao'" >
-         <span slot="label">SELL</span>
+         <span slot="label">卖</span>
       </tabbar-item>
 
 

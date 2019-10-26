@@ -1,5 +1,5 @@
 import {Apis} from './bitsharesjs-ws/src'
-import {ChainStore, PrivateKey, Aes} from './bitsharesjs/lib'
+import {ChainStore, PrivateKey, Aes, TransactionBuilder } from './bitsharesjs/lib'
 
 
 function ChainConnect () {
@@ -131,17 +131,54 @@ function GetOrderBook() {
         .db_api().exec("get_order_book", [
                      "CNY",
                      "CTS",
-                     50,
+                     10,
                  ])
   order_book.then(results => {
          books = results
          var ask = Merge(books.asks)
          var bid = Merge(books.bids)
-         OrderBookRet['ask'] = ask
+         OrderBookRet['ask'] = ask.reverse()
          OrderBookRet['bid'] = bid
   })
   return OrderBookRet
 }
+
+function Sell(account, buyAmount, sellAmount ) {
+    var tr = new TransactionBuilder()
+    tr.add_type_operation("limit_order_create", {
+           fee: {
+                amount: 0,
+                asset_id: "1.3.0"
+           },
+           seller: account,
+           amount_to_sell: {
+             amount: sellAmount,
+             asset_id: "1.3.0"
+
+           },
+           min_to_receive: {
+             amount: buyAmount,
+             asset_id: "1.3.1"
+           },
+           expiration: expiration,
+           fill_or_kill: true
+       })
+
+    return dispatch => {
+        return WalletDb.process_transaction(tr, null, true)
+                .then(result => {
+                     dispatch(true);
+                     return true;
+                })
+                .catch(error => {
+                     console.log("order error:", error)
+                     dispatch({error})
+                     return {error};
+
+                }) 
+     }
+}
+
 
 export {
   ChainConnect,
@@ -154,4 +191,5 @@ export {
   Dec,
   GetAccount,
   GetOrderBook,
+  Sell
 }
