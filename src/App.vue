@@ -17,7 +17,7 @@
          <span slot="label">买</span>
       </tabbar-item>
  
-      <tabbar-item :link="{path:'/qianbao'}" @click.native="CurrentPage = 'QianBao'" >
+      <tabbar-item :link="{path:'/sell'}" @click.native="CurrentPage = 'Sell'" >
          <span slot="label">卖</span>
       </tabbar-item>
 

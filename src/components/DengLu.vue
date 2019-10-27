@@ -25,7 +25,7 @@ export default {
             alert("password error")
             return -1;
          }
-         sessionStorage.priv = Enc(localStorage.getItem("priv"), ret[1])
+         sessionStorage.priv = Dec(localStorage.getItem("priv"), ret[1])
          sessionStorage.unlock = 1
          window.history.back(-1);
      }

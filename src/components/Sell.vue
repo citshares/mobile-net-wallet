@@ -1,6 +1,6 @@
 <template>
 <div>
-   <div v-show="CurrentPage === 'buy'">
+   <div v-show="CurrentPage === 'sell'">
    <p>挂单</p>
    <x-table :cell-bordered="false" :content-bordered="false" style="background-color:#fff;">
      <thead>
@@ -35,10 +35,10 @@
      </tbody>
    </x-table>
    <p>价格</p>
-   <input v-model="buy_price">
+   <input v-model="sell_price">
    <p>数量</p>
-   <input v-model="buy_count">
-   <button v-on:click='run_buy'>买入</button>
+   <input v-model="sell_count">
+   <button v-on:click='run_sell'>卖出</button>
    
 </div>
   <router-view></router-view>
@@ -48,7 +48,7 @@
 
 <script>
 import { Group, Cell, XTable, LoadMore } from 'vux'
-import { ChainConnect, GetOrderBook, Buy, GetAccount } from '../js/ChainData.js'
+import { ChainConnect, GetOrderBook, Sell, GetAccount} from '../js/ChainData.js'
 
 export default {
   name: 'QianBao',
@@ -65,14 +65,15 @@ export default {
           this.$forceUpdate()
           this.account_full = GetAccount(this.account)
           console.error("account_full ", this.account_full.get("id"))
+     
       },
-      run_buy: function() {
-          console.log("run_buy")
-	  if (!sessionStorage.unlock) {
-	      this.$router.push({ path: '/denglu'})
-	  }
-          let cny =  this.buy_count * this.buy_price
-	  Buy(this.account_full.get("id"), this.buy_count, cny,  sessionStorage.priv)
+      run_sell: function() {
+          console.log("run_sell")
+          if (!sessionStorage.unlock) {
+             this.$router.push({ path: '/denglu' })         
+          }
+          let buyamount = this.sell_count * this.sell_price
+          Sell(this.account_full.get("id"), buyamount, this.sell_count, sessionStorage.priv)
 
       }
 
@@ -86,7 +87,7 @@ export default {
     } else {
         this.timer = setInterval(this.UpdateOrder, 3000)
     }
-    this.CurrentPage = "buy"
+    this.CurrentPage = "sell"
   },
   beforeDestroy() {
      clearInterval(this.timer)
@@ -95,8 +96,8 @@ export default {
   data () {
     this.unlock = 0
     this.book = []
-    this.buy_price = 0
-    this.buy_count = 0
+    this.sell_price = 0
+    this.sell_count = 0
     return {
       account_status : 'import'
     }

@@ -101,10 +101,12 @@ function Dec(enc, key) {
    var dectxt = aes_handler.decryptHexToText(enc)
    return dectxt 
 }
-
+var account_full = []
 function GetAccount(account_name) {
-  return ChainStore.getAccount(account_name, false)
+  account_full = ChainStore.getAccount(account_name, false)
+  return account_full
 }
+
 
 
 function Merge(src) {
@@ -131,7 +133,7 @@ function GetOrderBook() {
         .db_api().exec("get_order_book", [
                      "CNY",
                      "CTS",
-                     10,
+                     50,
                  ])
   order_book.then(results => {
          books = results
@@ -143,11 +145,58 @@ function GetOrderBook() {
   return OrderBookRet
 }
 
-function Sell(account, buyAmount, sellAmount ) {
+function Buy(account, cts, cny, priv_wif) {
+    cny = parseInt(cny * 10000)
+    cts = parseInt(cts * 100000)
+    console.error("cny = ", cny)
+    console.error("cts = ", cts)
     var tr = new TransactionBuilder()
+    let priv = PrivateKey.fromWif(priv_wif)
+    let now = new Date()
+    let expiration = new Date()
+    expiration.setDate(now.getDate() + 30)
+    console.error("expiration ", expiration)
     tr.add_type_operation("limit_order_create", {
            fee: {
-                amount: 0,
+                amount: 578,
+                asset_id: "1.3.0"
+           },
+           seller: account,
+           amount_to_sell: {
+             amount: cny,
+             asset_id: "1.3.1"
+
+           },
+           min_to_receive: {
+             amount: cts,
+             asset_id: "1.3.0"
+           },
+           expiration: expiration,
+           fill_or_kill: false
+       })
+             
+       tr.add_signer(priv)
+       tr.broadcast()
+
+}
+
+
+function Sell(account, buyAmount, sellAmount, priv_wif) {
+    sellAmount = parseInt(sellAmount * 100000)
+    buyAmount = parseInt(buyAmount * 10000)
+    var tr = new TransactionBuilder()
+    console.error("account = ",account)
+    console.error("buyAmount = ",buyAmount)
+    console.error("sellAmount = ", sellAmount)
+    console.error("priv_wif =", priv_wif)
+    let priv = PrivateKey.fromWif(priv_wif)
+    let now = new Date()
+    let expiration = new Date()
+    expiration.setDate(now.getDate() + 30)
+    console.error("expiration ", expiration)
+    tr.add_type_operation("limit_order_create", {
+           fee: {
+                amount: 578,
                 asset_id: "1.3.0"
            },
            seller: account,
@@ -161,22 +210,12 @@ function Sell(account, buyAmount, sellAmount ) {
              asset_id: "1.3.1"
            },
            expiration: expiration,
-           fill_or_kill: true
+           fill_or_kill: false
        })
+             
+       tr.add_signer(priv)
+       tr.broadcast()
 
-    return dispatch => {
-        return WalletDb.process_transaction(tr, null, true)
-                .then(result => {
-                     dispatch(true);
-                     return true;
-                })
-                .catch(error => {
-                     console.log("order error:", error)
-                     dispatch({error})
-                     return {error};
-
-                }) 
-     }
 }
 
 
@@ -191,5 +230,6 @@ export {
   Dec,
   GetAccount,
   GetOrderBook,
-  Sell
+  Sell,
+  Buy
 }

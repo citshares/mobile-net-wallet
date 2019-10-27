@@ -200,6 +200,7 @@ class TransactionBuilder {
     }
 
     get_type_operation(name, operation) {
+        console.error("~~~ enter get_type_operation")
         if (this.tr_buffer) {
             throw new Error("already finalized");
         }
@@ -287,6 +288,7 @@ class TransactionBuilder {
             }
         }
         var operation_instance = _type.fromObject(operation);
+        console.error("~~~~ return from get_xxx")
         return [operation_id, operation_instance];
     }
 
@@ -774,9 +776,11 @@ class TransactionBuilder {
 
     broadcast(was_broadcast_callback) {
         if (this.tr_buffer) {
+            console.error("broadcast 1 ")
             return this._broadcast(was_broadcast_callback);
         } else {
             return this.finalize().then(() => {
+                console.error("broadcast 2 ")
                 return this._broadcast(was_broadcast_callback);
             });
         }
@@ -811,22 +815,24 @@ function _broadcast(was_broadcast_callback) {
         }
 
         var tr_object = ops.signed_transaction.toObject(this);
-        // console.log('... broadcast_transaction_with_callback !!!')
+        console.log('... broadcast_transaction_with_callback !!!')
+        console.error("~~~ debug trs ", JSON.stringify(tr_object))
         Apis.instance()
             .network_api()
             .exec("broadcast_transaction_with_callback", [
                 function(res) {
                     return resolve(res);
-                },
+          
+     },
                 tr_object
             ])
             .then(function() {
-                //console.log('... broadcast success, waiting for callback')
+                console.log('... broadcast success, waiting for callback')
                 if (was_broadcast_callback) was_broadcast_callback();
                 return;
             })
             .catch(error => {
-                // console.log may be redundant for network errors, other errors could occur
+                console.log("may be redundant for network errors, other errors could occur")
                 console.log(error);
                 var message = error.message;
                 if (!message) {
