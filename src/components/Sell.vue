@@ -1,47 +1,51 @@
 <template>
 <div>
-   <div v-show="CurrentPage === 'sell'">
-   <p>挂单</p>
-   <x-table :cell-bordered="false" :content-bordered="false" style="background-color:#fff;">
-     <thead>
-       <tr style="background-color: #F7F7F7">
-         <th>卖 </th>
-         <th>价格</th>
-         <th>数量</th>
-       </tr>
-     </thead>
-     <tbody>
-       <tr v-for="v in book['ask']">
-            <td>卖 {{ book['ask'].length - book['ask'].indexOf(v) - 1 }}</td>
-            <td>{{ v['price'] }}</td>
-            <td>{{ v['count'] }}</td>
-       </tr>
-     </tbody>
-   </x-table>
-   <x-table :cell-bordered="false" :content-bordered="false" style="background-color:#fff;">
-     <thead>
-       <tr style="background-color: #F7F7F7">
-         <th>买</th>
-         <th>价格</th>
-         <th>数量</th>
-       </tr>
-     </thead>
-     <tbody>
-       <tr v-for="v in book['bid']">
-            <td>买 {{ book['bid'].indexOf(v) }}</td>
-            <td>{{ v['price'] }}</td>
-            <td>{{ v['count'] }}</td>
-       </tr>
-     </tbody>
-   </x-table>
-   <p>价格</p>
-   <input v-model="sell_price">
-   <p>数量</p>
-   <input v-model="sell_count">
-   <button v-on:click='run_sell'>卖出</button>
-   
-</div>
-  <router-view></router-view>
+      <div v-show="CurrentPage === 'sell'">
+      <p>挂单</p>
+      <x-table :cell-bordered="false" :content-bordered="false" style="background-color:#fff;">
+        <thead>
+          <tr style="background-color: #F7F7F7">
+            <th>卖 </th>
+            <th>价格</th>
+            <th>数量</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="v in book['ask']">
+               <td>卖 {{ book['ask'].length - book['ask'].indexOf(v) - 1 }}</td>
+               <td>{{ v['price'] }}</td>
+               <td>{{ v['count'] }}</td>
+          </tr>
+        </tbody>
+      </x-table>
+      <x-table :cell-bordered="false" :content-bordered="false" style="background-color:#fff;">
+        <thead>
+          <tr style="background-color: #F7F7F7">
+            <th>买</th>
+            <th>价格</th>
+            <th>数量</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="v in book['bid']">
+               <td>买 {{ book['bid'].indexOf(v) }}</td>
+               <td>{{ v['price'] }}</td>
+               <td>{{ v['count'] }}</td>
+          </tr>
+        </tbody>
+      </x-table>
+      <p>价格</p>
+      <input v-model="sell_price">
+      <p>数量</p>
+      <input v-model="sell_count">
+      <button v-on:click='run_sell'>卖出</button>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      </div>
+      <router-view></router-view>
 </div>
 </template>
 

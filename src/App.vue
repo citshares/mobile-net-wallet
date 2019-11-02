@@ -98,18 +98,10 @@ export default {
 <style lang="less">
 @import '~vux/src/styles/reset.less';
 
-body {
-  background-color: #fbf9fe;
+html, body {
+   height: 100%;
+   width: 100%;
+   overflow-x: hidden;
 }
-.weui-tabbar.vux-demo-tabbar {
-    /** backdrop-filter: blur(10px);
-  background-color: none;
-  background: rgba(247, 247, 250, 0.5);**/
-}
-.vux-demo-tabbar .weui-bar__item_on {
-  color: #F70968;
-}
-.vux-demo-tabbar .weui-tabbar_item.weui-bar__item_on .vux-demo-tabbar-icon-home {
-  color: rgb(53, 73, 94);
-}
+
 </style>
