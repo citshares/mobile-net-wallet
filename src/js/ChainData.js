@@ -107,6 +107,18 @@ function GetAccount(account_name) {
   return account_full
 }
 
+var CNY_balance = []
+var CTS_balance = []
+function GetCNYBalance(account) {
+  CNY_balance = ChainStore.getAccountBalance(account, '1.3.1')
+  return CNY_balance / 10000.0
+}
+
+function GetCTSBalance(account) {
+  CTS_balance = ChainStore.getAccountBalance(account, '1.3.0')
+  return CTS_balance / 100000.0
+}
+
 
 
 function Merge(src) {
@@ -231,5 +243,7 @@ export {
   GetAccount,
   GetOrderBook,
   Sell,
-  Buy
+  Buy,
+  GetCNYBalance,
+  GetCTSBalance
 }

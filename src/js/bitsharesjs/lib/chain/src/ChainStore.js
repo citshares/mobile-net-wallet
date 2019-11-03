@@ -1077,7 +1077,7 @@ class ChainStore {
     getAccountBalance(account, asset_type) {
         let balances = account.get("balances");
         if (!balances) return 0;
-
+        
         let balance_obj_id = balances.get(asset_type);
         if (balance_obj_id) {
             let bal_obj = this.objects_by_id.get(balance_obj_id);

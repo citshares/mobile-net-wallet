@@ -68,11 +68,9 @@ export default {
           this.$set(this.book)
           this.$forceUpdate()
           this.account_full = GetAccount(this.account)
-          console.error("account_full ", this.account_full.get("id"))
      
       },
       run_sell: function() {
-          console.log("run_sell")
           if (!sessionStorage.unlock) {
              this.$router.push({ path: '/denglu' })         
           }
