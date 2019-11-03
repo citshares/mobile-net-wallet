@@ -39,7 +39,11 @@
    <p>数量</p>
    <input v-model="buy_count">
    <button v-on:click='run_buy'>买入</button>
-   
+   <br>  
+   <br>  
+   <br>  
+   <br>  
+   <br>  
 </div>
   <router-view></router-view>
 </div>
