@@ -14,7 +14,7 @@
   export default {
     mounted () {
       ChainConnectMarket()
-      this.timer = setInterval(this.refresh, 3000)
+      this.timer = setInterval(this.refresh, 1000)
     },
     methods: {
 

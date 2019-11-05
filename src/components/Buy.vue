@@ -88,7 +88,7 @@ export default {
        alert('请先导入账户')
        this.$router.push({ path: '/daoru' })
     } else {
-        this.timer = setInterval(this.UpdateOrder, 3000)
+        this.timer = setInterval(this.UpdateOrder, 1000)
     }
     this.CurrentPage = "buy"
   },
