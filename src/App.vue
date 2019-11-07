@@ -31,6 +31,7 @@
 <script>
 import { Group, Cell, Tabbar, TabbarItem } from 'vux'
 import { mapState } from 'vuex'
+import { ChainConnect, GetAccount } from './js/ChainData.js'
 
 export default {
   name: 'app',
@@ -41,44 +42,9 @@ export default {
     TabbarItem
   },
   methods: {
-    onShowModeChange (val) {
-      this.CurrentPage = true
-      setTimeout(one => {
-        this.showModeValue = val
-      }, 400)
-    },
-    onPlacementChange (val) {
-      this.CurrentPage = true
-      setTimeout(one => {
-        this.showPlacementValue = val
-      }, 400)
-    }
   },
   mounted () {
-    this.handler = () => {
-      if (this.path === '/demo') {
-        this.box = document.querySelector('#demo_list_box')
-        this.updateDemoPosition(this.box.scrollTop)
-      }
-    }
-  },
-  watch: {
-    path (path) {
-      if (path === '/component/demo') {
-        this.$router.replace('/demo')
-      }
-      if (path === 'demo') {
-        setTimeout(() => {
-          this.box = document.querySelector('#demo_list_box')
-          if (this.box) {
-            this.box.removeEventListener('scroll', this.handler, false)
-            this.box.addEventListener('scroll', this.handler, false)
-          }
-        }, 1000)
-      } else {
-        this.box && this.box.removeEventListener('scroll', this.handler, false)
-      }
-    }
+       ChainConnect()
   },
   computed: {
     ...mapState({
@@ -88,7 +54,6 @@ export default {
   },
   data () {
     return {
-      entryUrl: document.location.href,
       CurrentPage: 'HangQing'
     }
   }
