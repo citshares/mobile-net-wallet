@@ -6,6 +6,8 @@
           <input class="input_list" v-model="sell_price">
           <p class="input_list" >数量</p>
           <input class="input_list" v-model="sell_count">
+          <br>
+          <br>
           <button class="input_list" v-on:click='run_sell'>卖出</button>
       </div>
       <div class="content">
@@ -20,13 +22,14 @@
              </thead>
              <tbody>
                 <tr class="item" v-for="v in book['ask']">
-                   <td>卖 {{ book['ask'].length - book['ask'].indexOf(v) - 1 }}</td>
-                   <td>{{ v['price'] }}</td>
-                   <td>{{ v['count'] }}</td>
+                   <td>卖{{ book['ask'].length - book['ask'].indexOf(v) - 1 }}</td>
+                   <td>&nbsp &nbsp &nbsp {{ v['price'] }} &nbsp &nbsp &nbsp</td>
+                   <td> {{ v['count'] }} </td>
                 </tr>
              </tbody>
           </x-table>
       </div>
+      <br>
       <div class="table">
           <x-table >
              <thead>
@@ -38,9 +41,9 @@
              </thead>
              <tbody>
                  <tr class="item" v-for="v in book['bid']">
-                    <td>买 {{ book['bid'].indexOf(v) }}</td>
-                    <td>{{ v['price'] }}</td>
-                    <td>{{ v['count'] }}</td>
+                    <td>买{{ book['bid'].indexOf(v) }}</td>
+                    <td>&nbsp &nbsp &nbsp{{ v['price'] }} &nbsp &nbsp &nbsp</td>
+                    <td>  {{ v['count'] }}  </td>
                  </tr>
              </tbody>
            </x-table>
