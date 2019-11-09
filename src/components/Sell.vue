@@ -29,7 +29,6 @@
              </tbody>
           </x-table>
       </div>
-      <br>
       <div class="table">
           <x-table >
              <thead>
