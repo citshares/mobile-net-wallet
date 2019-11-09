@@ -156,7 +156,7 @@ function GetOrderBook() {
          OrderBookRet['ask'] = ask.reverse()
          OrderBookRet['bid'] = bid
   })
-  OrderBookRet['ask'] = OrderBookRet['ask'].slice(OrderBookRet['ask'].length - 9, OrderBookRet['ask'].length)
+  OrderBookRet['ask'] = OrderBookRet['ask'].slice(OrderBookRet['ask'].length - 8, OrderBookRet['ask'].length)
   for (var key in OrderBookRet['ask']) {
          OrderBookRet['ask'][key]['price'] = Number(OrderBookRet['ask'][key]['price']).toFixed(4)
          OrderBookRet['ask'][key]['count'] = Number(OrderBookRet['ask'][key]['count']).toFixed(0)
