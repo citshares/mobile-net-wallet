@@ -3,13 +3,13 @@
    <div v-show="CurrentPage === 'buy'">
 
    <div class="content">
-       <p class="input_list">价格</p>
-       <input class="input_list" v-model="buy_price">
-       <p class="input_list">数量</p>
-       <input class="input_list" v-model="buy_count">
+       <p class="input_list">&nbsp 价格</p>
+       &nbsp <input class="input_list" v-model="buy_price">
+       <p class="input_list">&nbsp 数量</p>
+       &nbsp <input class="input_list" v-model="buy_count">
        <br>
        <br>
-       <button class="input_list" v-on:click='run_buy'>买入</button>
+       &nbsp <button class="input_list" v-on:click='run_buy'>买入</button>
    </div>
    <div class="content">
        <div class="table">

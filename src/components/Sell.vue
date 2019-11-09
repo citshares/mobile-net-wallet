@@ -2,13 +2,13 @@
 <div>
       <div v-show="CurrentPage === 'sell'">
       <div class="content">
-          <p class="input_list">价格</p>
-          <input class="input_list" v-model="sell_price">
-          <p class="input_list" >数量</p>
-          <input class="input_list" v-model="sell_count">
+          <p class="input_list"> &nbsp 价格</p>
+          &nbsp <input class="input_list" v-model="sell_price">
+          <p class="input_list" >&nbsp 数量</p>
+          &nbsp <input class="input_list" v-model="sell_count">
           <br>
           <br>
-          <button class="input_list" v-on:click='run_sell'>卖出</button>
+          &nbsp <button class="input_list" v-on:click='run_sell'>卖出</button>
       </div>
       <div class="content">
           <div class="table">
