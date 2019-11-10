@@ -22,6 +22,10 @@
       </tabbar-item>
 
 
+      <tabbar-item :link="{path:'/my_orders'}" @click.native="CurrentPage = 'My_orders'" >
+         <span slot="label">我的挂单</span>
+      </tabbar-item>
+
     </tabbar>
   <router-view></router-view>
   </div>

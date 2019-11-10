@@ -120,6 +120,50 @@ function GetCTSBalance(account) {
 }
 
 
+function isCTSorCNY(id) {
+    if (id == "1.3.0" || id == "1.3.1") {
+       return true
+    }else{
+       return false
+    }
+}
+
+function GetAccountLimitOrder(account_full) {
+    var temp = account_full.get("orders")
+    var limit_ids = temp.toList()
+    var order = []
+
+    for (var i = 0 ; i < limit_ids.size; i++) {
+       var o = ChainStore.getObject(limit_ids.get(i))
+       var sell_price = o.get("sell_price")
+       var type = ""
+       var cts_amount = 0
+       var cny_amount = 0
+       var price = 0
+       
+       if (! isCTSorCNY(sell_price.get("base").get("asset_id")) || ! isCTSorCNY(sell_price.get("quote").get("asset_id"))  ) {
+          continue
+       }
+     
+       if (sell_price.get("base").get("asset_id") == "1.3.0") {
+           type = "sell"
+           cts_amount =  Number(sell_price.get("base").get("amount")) / 100000.0
+           cny_amount =  Number(sell_price.get("quote").get("amount")) / 10000.0
+           price = Number(sell_price.get("quote").get("amount"))  / Number(sell_price.get("base").get("amount")) 
+           price = price * 10.0
+       } else if (sell_price.get("base").get("asset_id") == "1.3.1") {
+           type = "buy"
+           cts_amount =  Number(sell_price.get("quote").get("amount")) / 100000.0
+           cny_amount =  Number(sell_price.get("base").get("amount")) / 10000.0
+           price = Number(sell_price.get("base").get("amount"))  / Number(sell_price.get("quote").get("amount")) 
+           price = price * 10.0
+       }
+       var one = {"type": type, "cts_amount":cts_amount.toFixed(4), "cny_amount":cny_amount.toFixed(4), "price":price.toFixed(4) }
+       order.push(one)
+    
+    }
+    return order
+}
 
 function Merge(src) {
    var l = []
@@ -258,5 +302,6 @@ export {
   Sell,
   Buy,
   GetCNYBalance,
-  GetCTSBalance
+  GetCTSBalance,
+  GetAccountLimitOrder
 }

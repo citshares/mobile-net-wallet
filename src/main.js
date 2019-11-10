@@ -10,6 +10,7 @@ import { sync } from 'vuex-router-sync'
 import QianBao from './components/QianBao'
 import Buy from './components/Buy'
 import Sell from './components/Sell'
+import My_orders from './components/My_orders'
 import Kline from './components/Kline'
 import ChainData from './components/ChainData'
 import DaoRu from './components/DaoRu'
@@ -59,7 +60,8 @@ const routes = [
   {path: '/daoru', component: DaoRu},
   {path: '/denglu', component: DengLu},
   {path: '/buy', component: Buy},
-  {path: '/sell', component: Sell}
+  {path: '/sell', component: Sell},
+  {path: '/my_orders', component: My_orders}
 ]
 
 const router = new VueRouter({
