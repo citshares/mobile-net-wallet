@@ -78,8 +78,9 @@ export default {
 	      this.$router.push({ path: '/denglu'})
 	  }
           let cny =  this.buy_count * this.buy_price
-	  Buy(this.account_full.get("id"), this.buy_count, cny,  sessionStorage.priv)
-
+	      Buy(this.account_full.get("id"), this.buy_count, cny,  sessionStorage.priv)
+          alert('请在挂单页查看')
+          this.$router.push({ path: '/my_orders' })
       }
 
   },

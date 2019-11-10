@@ -79,6 +79,8 @@ export default {
           }
           let buyamount = this.sell_count * this.sell_price
           Sell(this.account_full.get("id"), buyamount, this.sell_count, sessionStorage.priv)
+          alert('请在挂单页查看')
+          this.$router.push({ path: '/my_orders' })
 
       }
 
